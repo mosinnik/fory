@@ -32,6 +32,7 @@ import org.apache.fory.benchmark.state.JsonbState;
 import org.apache.fory.benchmark.state.KryoState;
 import org.apache.fory.benchmark.state.MsgpackState;
 import org.apache.fory.benchmark.state.ObjectType;
+import org.apache.fory.benchmark.state.OneNioState;
 import org.apache.fory.benchmark.state.ProtoBuffersState;
 import org.apache.fory.benchmark.state.ProtostuffState;
 import org.apache.fory.memory.ByteBufferUtil;
@@ -102,6 +103,11 @@ public class UserTypeSerializeSuite {
     state.out.reset();
     HessionState.serialize(state.out, state.object);
     return state.bos;
+  }
+
+  @Benchmark
+  public byte[] onennio_serialize(OneNioState.OneNioUserTypeState state) {
+    return OneNioState.serialize(state.object);
   }
 
   @Benchmark

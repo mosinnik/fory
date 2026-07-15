@@ -24,6 +24,7 @@ import org.apache.fory.benchmark.state.FstState;
 import org.apache.fory.benchmark.state.HessionState;
 import org.apache.fory.benchmark.state.JDKState;
 import org.apache.fory.benchmark.state.KryoState;
+import org.apache.fory.benchmark.state.OneNioState;
 import org.apache.fory.benchmark.state.ProtostuffState;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -57,6 +58,11 @@ public class IntsDeserializationSuite {
     state.bis.reset();
     state.input.reset();
     return HessionState.deserialize(state.input);
+  }
+
+  @Benchmark
+  public Object onennio_deserializeInts(OneNioState.ReadIntsState state) {
+    return OneNioState.deserialize(state.serializedBytes);
   }
 
   // @Benchmark

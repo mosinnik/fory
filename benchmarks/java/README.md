@@ -12,6 +12,7 @@ Apache Fory™ Java Benchmark contains benchmarks for:
 - Protobuf
 - Flatbuffers
 - Msgpack
+- One-nio
 
 > Part of benchmark data is based on [Kryo benchmark](https://github.com/EsotericSoftware/kryo/tree/master/benchmarks).
 > Kryo benchmark suite is based on [Kryo benchmark](https://github.com/EsotericSoftware/kryo/tree/master/benchmarks).

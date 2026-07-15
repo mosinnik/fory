@@ -25,6 +25,7 @@ import org.apache.fory.benchmark.state.FstState;
 import org.apache.fory.benchmark.state.HessionState;
 import org.apache.fory.benchmark.state.JDKState;
 import org.apache.fory.benchmark.state.KryoState;
+import org.apache.fory.benchmark.state.OneNioState;
 import org.apache.fory.benchmark.state.ProtostuffState;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -61,6 +62,11 @@ public class IntsSerializationSuite {
     state.out.reset();
     HessionState.serialize(state.out, state.data.ints);
     return state.bos;
+  }
+
+  @Benchmark
+  public byte[] onennio_serializeInts(OneNioState.DataState state) {
+    return OneNioState.serialize(state.data.ints);
   }
 
   // Protostuff doesn't support serialize array

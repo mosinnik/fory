@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbe:messageSchema
+    xmlns:sbe="http://fixprotocol.io/2016/sbe"
+    package="org.apache.fory.benchmark.state.generated.sbe"
+    id="1"
+    version="0"
+    semanticVersion="5.2"
+    description="Apache Fory benchmark SBE schema"
+    byteOrder="littleEndian">
+    <types>
+        <composite name="messageHeader">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="templateId" primitiveType="uint16"/>
+            <type name="schemaId" primitiveType="uint16"/>
+            <type name="version" primitiveType="uint16"/>
+        </composite>
+
+        <composite name="groupSizeEncoding">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="numInGroup" primitiveType="uint16"/>
+        </composite>
+
+        <composite name="varString">
+            <type name="length" primitiveType="uint16" semanticType="length" minValue="0" maxValue="65534"/>
+            <type name="varData" primitiveType="char" length="0" characterEncoding="UTF-8"/>
+        </composite>
+
+        <enum name="ImageSize" encodingType="uint8">
+            <validValue name="SMALL">0</validValue>
+            <validValue name="LARGE">1</validValue>
+        </enum>
+
+        <enum name="Player" encodingType="uint8">
+            <validValue name="JAVA">0</validValue>
+            <validValue name="FLASH">1</validValue>
+        </enum>
+    </types>
+
+    <sbe:message name="Sample" id="1" description="Sample benchmark data" blockLength="106">
+        <field name="intValue" id="1" type="int32"/>
+        <field name="longValue" id="2" type="int64"/>
+        <field name="floatValue" id="3" type="float"/>
+        <field name="doubleValue" id="4" type="double"/>
+        <field name="shortValue" id="5" type="int16"/>
+        <field name="charValue" id="6" type="char"/>
+        <field name="booleanValue" id="7" type="uint8"/>
+        <field name="intValueBoxed" id="8" type="int32"/>
+        <field name="longValueBoxed" id="9" type="int64"/>
+        <field name="floatValueBoxed" id="10" type="float"/>
+        <field name="doubleValueBoxed" id="11" type="double"/>
+        <field name="shortValueBoxed" id="12" type="int16"/>
+        <field name="charValueBoxed" id="13" type="char"/>
+        <field name="booleanValueBoxed" id="14" type="uint8"/>
+        <group name="intArray" id="15" dimensionType="groupSizeEncoding" blockLength="4">
+            <field name="element" id="16" type="int32"/>
+        </group>
+        <group name="longArray" id="17" dimensionType="groupSizeEncoding" blockLength="8">
+            <field name="element" id="18" type="int64"/>
+        </group>
+        <group name="floatArray" id="19" dimensionType="groupSizeEncoding" blockLength="4">
+            <field name="element" id="20" type="float"/>
+        </group>
+        <group name="doubleArray" id="21" dimensionType="groupSizeEncoding" blockLength="8">
+            <field name="element" id="22" type="double"/>
+        </group>
+        <group name="shortArray" id="23" dimensionType="groupSizeEncoding" blockLength="2">
+            <field name="element" id="24" type="int16"/>
+        </group>
+        <group name="charArray" id="25" dimensionType="groupSizeEncoding" blockLength="2">
+            <field name="element" id="26" type="char"/>
+        </group>
+        <group name="booleanArray" id="27" dimensionType="groupSizeEncoding" blockLength="1">
+            <field name="element" id="28" type="uint8"/>
+        </group>
+        <data name="string" id="29" type="varString"/>
+    </sbe:message>
+
+    <sbe:message name="MediaContent" id="100" description="MediaContent benchmark data">
+        <field name="width" id="101" type="int32"/>
+        <field name="height" id="102" type="int32"/>
+        <field name="duration" id="103" type="int64"/>
+        <field name="size" id="104" type="int64"/>
+        <field name="bitrate" id="105" type="int32"/>
+        <field name="hasBitrate" id="106" type="uint8"/>
+        <field name="player" id="107" type="Player"/>
+        <group name="images" id="108" dimensionType="groupSizeEncoding">
+            <field name="width" id="109" type="int32"/>
+            <field name="height" id="110" type="int32"/>
+            <field name="size" id="111" type="ImageSize"/>
+            <data name="uri" id="112" type="varString"/>
+            <data name="title" id="113" type="varString"/>
+        </group>
+        <group name="persons" id="114" dimensionType="groupSizeEncoding">
+            <data name="person" id="115" type="varString"/>
+        </group>
+        <data name="mediaUri" id="116" type="varString"/>
+        <data name="mediaTitle" id="117" type="varString"/>
+        <data name="format" id="118" type="varString"/>
+        <data name="copyright" id="119" type="varString"/>
+    </sbe:message>
+</sbe:messageSchema>

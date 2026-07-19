@@ -31,6 +31,7 @@ import org.apache.fory.benchmark.state.MsgpackState;
 import org.apache.fory.benchmark.state.ObjectType;
 import org.apache.fory.benchmark.state.OneNioState;
 import org.apache.fory.benchmark.state.ProtoBuffersState;
+import org.apache.fory.benchmark.state.SbeState;
 import org.apache.fory.benchmark.state.ProtostuffState;
 import org.apache.fory.memory.ByteBufferUtil;
 import org.openjdk.jmh.Main;
@@ -147,6 +148,18 @@ public class UserTypeDeserializeSuite {
       return FlatBuffersState.deserializeSample(state.deserializedData);
     } else {
       return FlatBuffersState.deserializeMediaContent(state.deserializedData);
+    }
+  }
+
+  @Benchmark
+  public Object sbe_deserialize(SbeState.SbeUserTypeState state) {
+    if (state.objectType == ObjectType.SAMPLE) {
+      return state.deserializeSample(state.serializedBytes);
+    } else if (state.objectType == ObjectType.MEDIA_CONTENT) {
+      return state.deserializeMediaContent(state.serializedBytes);
+    } else {
+      throw new UnsupportedOperationException(
+          String.format("SBE does not support object type %s", state.objectType));
     }
   }
 
